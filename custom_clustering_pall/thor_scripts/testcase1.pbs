@@ -1,0 +1,28 @@
+#!/bin/sh -login
+#Project Ensemble Clustering
+#PBS -l mem=1000mb
+#PBS -l nodes=4:ppn=1
+##PBS -l walltime=00:01:00
+#PBS -M vinay.b.gavirangaswamy@wmich.edu
+#PBS -N EnsembleClusteringTestCase1
+#PBS -j oe
+#PBS -m abe
+
+## Automatically calculate the total number of processors
+NP=$(cat ${PBS_NODEFILE} | wc -l)
+
+#exports at runtime
+module load openmpi/gnu/1.7.3
+
+#cd into the working directory 
+cd /home/research/v5gavirangas/Documents/MATLAB/Algorithm/Matlab/mytoolbox/clustering/methods_custom_classifiers/custom_clustering
+
+#copy the file listing the nodes we can use to our working directory
+cp ${PBS_NODEFILE} ./
+
+#display the command we are going to run, then run it.
+echo mpirun -machinefile ${PBS_NODEFILE} -n ${NP} run_clust_p_mchine -m tmp/bootIdxTmpFile-2YQctl -k tmp/bootIdxTmpFile-AZVS0K -i tmp/bootIdxTmpFile-h4ZSnS -b 5 -r 20 -n 17 -c 24 -e tmp/bootIdxTmpFile-l1wNTs -f tmp/bootIdxTmpFile-TJ7Hp3  -g tmp/bootIdxTmpFile-F6MCVD -h tmp/bootIdxTmpFile-4wxxre
+
+mpirun -machinefile ${PBS_NODEFILE} -n ${NP} run_clust_p_mchine -m tmp/bootIdxTmpFile-2YQctl -k tmp/bootIdxTmpFile-AZVS0K -i tmp/bootIdxTmpFile-h4ZSnS -b 5 -r 20 -n 17 -c 24 -e tmp/bootIdxTmpFile-l1wNTs -f tmp/bootIdxTmpFile-TJ7Hp3  -g tmp/bootIdxTmpFile-F6MCVD -h tmp/bootIdxTmpFile-4wxxre
+
+

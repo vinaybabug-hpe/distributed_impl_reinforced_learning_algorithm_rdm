@@ -1,0 +1,57 @@
+#PBS -N ENSEMBLE-C-MODEL-PALL
+#PBS -S /bin/bash
+#PBS -q M40
+#PBS -j oe
+#PBS -l nodes=4:ppn=12
+
+
+# Load the ompi environment.  Use 'module avail' from the
+# command line to see all available modules.
+
+
+
+ 
+module load matlab/R2015b
+export MLM_LICENSE_FILE=27000@podmt1-100-93
+module load gcc/4.7.2
+module load openmpi/1.6.4/gcc.4.7.2
+
+
+# Display some basics about the job
+
+echo
+echo "================== nodes ===================="
+cat $PBS_NODEFILE
+echo
+echo "================= job info  ================="
+echo "Date:   $(date)"
+echo "Job ID: $PBS_JOBID"
+echo "Queue:  $PBS_QUEUE"
+echo "Cores:  $PBS_NP"
+echo "mpirun: $(which mpirun)"
+echo
+echo "=================== run ====================="
+
+# Enter the PBS folder from which qsub is run
+
+cd $PBS_O_WORKDIR
+
+# Run imb with mpirun. Note that no -mca btl options should be
+# used to ensure optimal performance.  Jobs will use Infiniband
+# by default.
+
+matlab -nojvm -r t_mex2c_cluster_fit
+
+
+
+exit $?
+
+# Display end date and return value
+
+echo
+echo "================== done ====================="
+echo "Date:   $(date)"
+echo "retval: $retval"
+echo
+
+# vim: syntax=sh
