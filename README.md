@@ -1,4 +1,4 @@
-# CPU-CUDA Implementation of Reinforcement Learning Algorithm used in Analysis of Risky Deicision Making
+# Distributed Memory Implementation of Reinforcement Learning Algorithm used in Analysis of Risky Deicision Making
 
 A distributed memory parallel implementation for the algorithm developed by Lee Newman for identifying individual differences.
 
